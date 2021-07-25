@@ -149,7 +149,7 @@ class RONIDefense(PoisonFilteringDefence):
             y_i = y_suspect[idx]
 
             after_classifier = deepcopy(before_classifier)
-            after_classifier.fit(x=np.vstack([x_trusted, x_i]), y=np.vstack([y_trusted, y_i]))
+            after_classifier.fit(x=np.vstack([x_trusted, [x_i]]), y=np.vstack([y_trusted, [y_i]]))
             acc_shift = performance_diff(
                 before_classifier,
                 after_classifier,
@@ -194,7 +194,7 @@ class RONIDefense(PoisonFilteringDefence):
 
         for x_c, y_c in zip(self.x_cal, self.y_cal):
             after_classifier = deepcopy(before_classifier)
-            after_classifier.fit(x=np.vstack([self.x_val, x_c]), y=np.vstack([self.y_val, y_c]))
+            after_classifier.fit(x=np.vstack([self.x_val, [x_c]]), y=np.vstack([self.y_val, [y_c]]))
             accs.append(
                 performance_diff(
                     before_classifier,
